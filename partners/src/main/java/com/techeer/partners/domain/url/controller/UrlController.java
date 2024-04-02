@@ -2,12 +2,11 @@ package com.techeer.partners.domain.url.controller;
 
 import com.techeer.partners.domain.url.dto.request.UrlCreateRequest;
 import com.techeer.partners.domain.url.dto.response.GetUrlListResponse;
-import com.techeer.partners.domain.url.dto.response.UrlCreateResponse;
+import com.techeer.partners.domain.url.dto.response.CreateUrlResponse;
 import com.techeer.partners.domain.url.service.UrlService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +28,8 @@ public class UrlController {
     private final UrlService urlService;
 
     @PostMapping
-    public ResponseEntity<UrlCreateResponse> createShortUrl(@RequestBody UrlCreateRequest request) {
-        UrlCreateResponse response = urlService.createShortUrl(request);
+    public ResponseEntity<CreateUrlResponse> createShortUrl(@RequestBody UrlCreateRequest request) {
+        CreateUrlResponse response = urlService.createShortUrl(request);
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(response);
     }

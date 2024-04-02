@@ -3,7 +3,7 @@ package com.techeer.partners.domain.url.service;
 import com.techeer.partners.domain.url.domain.Url;
 import com.techeer.partners.domain.url.dto.request.UrlCreateRequest;
 import com.techeer.partners.domain.url.dto.response.GetUrlListResponse;
-import com.techeer.partners.domain.url.dto.response.UrlCreateResponse;
+import com.techeer.partners.domain.url.dto.response.CreateUrlResponse;
 import com.techeer.partners.domain.url.repository.UrlRepository;
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +18,11 @@ import org.springframework.util.DigestUtils;
 public class UrlService {
     private final UrlRepository urlRepository;
 
-    public UrlCreateResponse createShortUrl(UrlCreateRequest request) {
+    public CreateUrlResponse createShortUrl(UrlCreateRequest request) {
         try {
             Optional<Url> existingUrl = urlRepository.findByOriginalUrl(request.getOriginalUrl());
             if (existingUrl.isPresent()) {
-                return UrlCreateResponse.from(existingUrl.get());
+                return CreateUrlResponse.from(existingUrl.get());
             } else {
                 String hash = DigestUtils.md5DigestAsHex(request.getOriginalUrl().getBytes()).substring(0, 6);
 
@@ -33,7 +33,7 @@ public class UrlService {
                     .build();
                 Url url = urlRepository.save(entity);
 
-                return UrlCreateResponse.from(url);
+                return CreateUrlResponse.from(url);
             }
         } catch (Exception e) {
             throw new RuntimeException("URL 생성 중 오류가 발생했습니다.", e);

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface UrlRepository extends JpaRepository<Url, Long> {
     Optional<Url> findByHash(String hash);
     Optional<Url> findByOriginalUrl(String originalUrl);
-    List<Url> findAllByOrderByCreatedAtDesc();
     Optional<Url> findByHashAndIsDeletedFalse(String hash);
     List<Url> findAllByIsDeletedFalseOrderByCreatedAtDesc();
-    void deleteByHash(String hash);
 }
