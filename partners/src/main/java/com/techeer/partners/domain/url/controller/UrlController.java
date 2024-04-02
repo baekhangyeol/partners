@@ -4,8 +4,11 @@ import com.techeer.partners.domain.url.dto.request.UrlCreateRequest;
 import com.techeer.partners.domain.url.dto.response.GetUrlListResponse;
 import com.techeer.partners.domain.url.dto.response.UrlCreateResponse;
 import com.techeer.partners.domain.url.service.UrlService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.view.RedirectView;
 
+@Tag(name = "short-links", description = "URL Shortener 관련 API")
 @RestController
 @RequestMapping("/short-links")
-@AllArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class UrlController {
     private final UrlService urlService;
 
