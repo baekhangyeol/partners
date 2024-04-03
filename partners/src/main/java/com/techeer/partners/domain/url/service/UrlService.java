@@ -7,6 +7,7 @@ import com.techeer.partners.domain.url.dto.response.CreateUrlResponse;
 import com.techeer.partners.domain.url.repository.UrlRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,15 +21,17 @@ public class UrlService {
 
     public CreateUrlResponse createShortUrl(UrlCreateRequest request) {
         try {
-            Optional<Url> existingUrl = urlRepository.findByOriginalUrl(request.getOriginalUrl());
+            Optional<Url> existingUrl = urlRepository.findByOriginalUrlAndIsDeletedFalse(request.getOriginalUrl());
             if (existingUrl.isPresent()) {
                 return CreateUrlResponse.from(existingUrl.get());
             } else {
-                String hash = DigestUtils.md5DigestAsHex(request.getOriginalUrl().getBytes()).substring(0, 6);
+                String seed = request.getOriginalUrl() + System.currentTimeMillis() + new Random().nextInt();
+                String hash = DigestUtils.md5DigestAsHex(seed.getBytes()).substring(0, 6);
+                String shortUrl = "http://localhost:8080/short-links/" + hash;
 
                 Url entity = Url.builder()
                     .originalUrl(request.getOriginalUrl())
-                    .shortUrl("http://localhost:8080/short-links/" + hash)
+                    .shortUrl(shortUrl)
                     .hash(hash)
                     .build();
                 Url url = urlRepository.save(entity);

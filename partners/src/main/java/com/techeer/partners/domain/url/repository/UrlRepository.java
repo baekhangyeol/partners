@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UrlRepository extends JpaRepository<Url, Long> {
     Optional<Url> findByHash(String hash);
-    Optional<Url> findByOriginalUrl(String originalUrl);
     Optional<Url> findByHashAndIsDeletedFalse(String hash);
     List<Url> findAllByIsDeletedFalseOrderByCreatedAtDesc();
+    Optional<Url> findByOriginalUrlAndIsDeletedFalse(String originalUrl);
 }
