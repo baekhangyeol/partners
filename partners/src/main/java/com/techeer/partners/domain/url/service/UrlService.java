@@ -58,6 +58,7 @@ public class UrlService {
         return GetUrlListResponse.listOf(urls);
     }
 
+    @Transactional
     public void deleteShortUrl(Long id) {
         try {
             Url url = urlRepository.findById(id)
