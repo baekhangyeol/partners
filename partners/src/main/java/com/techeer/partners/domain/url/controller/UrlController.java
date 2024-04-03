@@ -47,9 +47,9 @@ public class UrlController {
             .body(urlService.getUrlList());
     }
 
-    @DeleteMapping("/{hash}")
-    public ResponseEntity<Void> deleteShortUrl(@PathVariable String hash) {
-        urlService.deleteShortUrl(hash);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteShortUrl(@PathVariable Long id) {
+        urlService.deleteShortUrl(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
             .build();
     }

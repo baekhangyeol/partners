@@ -58,9 +58,9 @@ public class UrlService {
         return GetUrlListResponse.listOf(urls);
     }
 
-    public void deleteShortUrl(String hash) {
+    public void deleteShortUrl(Long id) {
         try {
-            Url url = urlRepository.findByHash(hash)
+            Url url = urlRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 URL 입니다."));
 
             url.delete();
