@@ -11,5 +11,5 @@ public interface UrlRepository extends JpaRepository<Url, Long> {
     Optional<Url> findByHash(String hash);
     Optional<Url> findByHashAndIsDeletedFalse(String hash);
     List<Url> findAllByIsDeletedFalseOrderByCreatedAtDesc();
-    Optional<Url> findByOriginalUrlAndIsDeletedFalse(String originalUrl);
+    Optional<Url> findByOriginUrlAndIsDeletedFalse(String originalUrl);
 }

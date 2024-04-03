@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UrlCreateRequest {
-    private String originalUrl;
+    private String originUrl;
 
     public Url toEntity() {
         return Url.builder()
-            .originalUrl(originalUrl)
+            .originUrl(originUrl)
             .build();
     }
 }

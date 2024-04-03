@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GetUrlListResponse {
     private Long id;
-    private String originalUrl;
+    private String originUrl;
     private String shortUrl;
     private String hash;
     private LocalDateTime createdAt;
@@ -23,7 +23,7 @@ public class GetUrlListResponse {
     public static GetUrlListResponse from(Url url) {
         return GetUrlListResponse.builder()
             .id(url.getId())
-            .originalUrl(url.getOriginalUrl())
+            .originUrl(url.getOriginUrl())
             .shortUrl(url.getShortUrl())
             .hash(url.getHash())
             .createdAt(url.getCreatedAt())

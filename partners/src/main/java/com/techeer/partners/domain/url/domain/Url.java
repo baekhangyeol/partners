@@ -21,7 +21,7 @@ public class Url extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String originalUrl;
+    private String originUrl;
     @Column(nullable = false)
     private String shortUrl;
     @Column(unique = true)

@@ -35,7 +35,7 @@ public class UrlController {
     }
 
     @GetMapping("/{hash}")
-    public RedirectView redirectToOriginalUrl(@PathVariable String hash) {
+    public RedirectView redirectToOriginUrl(@PathVariable String hash) {
         String originalUrl = urlService.getOriginalUrlByHash(hash)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하는 URL을 찾을 수 없습니다."));
         return new RedirectView(originalUrl);

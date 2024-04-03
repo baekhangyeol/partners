@@ -21,16 +21,16 @@ public class UrlService {
 
     public CreateUrlResponse createShortUrl(UrlCreateRequest request) {
         try {
-            Optional<Url> existingUrl = urlRepository.findByOriginalUrlAndIsDeletedFalse(request.getOriginalUrl());
+            Optional<Url> existingUrl = urlRepository.findByOriginUrlAndIsDeletedFalse(request.getOriginUrl());
             if (existingUrl.isPresent()) {
                 return CreateUrlResponse.from(existingUrl.get());
             } else {
-                String seed = request.getOriginalUrl() + System.currentTimeMillis() + new Random().nextInt();
+                String seed = request.getOriginUrl() + System.currentTimeMillis() + new Random().nextInt();
                 String hash = DigestUtils.md5DigestAsHex(seed.getBytes()).substring(0, 6);
                 String shortUrl = "http://localhost:8080/short-links/" + hash;
 
                 Url entity = Url.builder()
-                    .originalUrl(request.getOriginalUrl())
+                    .originUrl(request.getOriginUrl())
                     .shortUrl(shortUrl)
                     .hash(hash)
                     .build();
@@ -46,7 +46,7 @@ public class UrlService {
     public Optional<String> getOriginalUrlByHash(String hash) {
         try {
             return urlRepository.findByHashAndIsDeletedFalse(hash)
-                .map(Url::getOriginalUrl);
+                .map(Url::getOriginUrl);
         } catch (Exception e) {
             throw new RuntimeException("해시로 원본 URL을 조회하는 중 오류가 발생했습니다.", e);
         }
